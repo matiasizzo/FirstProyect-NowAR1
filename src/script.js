@@ -5,7 +5,7 @@ import * as dat from 'dat.gui'
 //loading 
 
 const textureLoader = new THREE.TextureLoader()
-const normalTexture = textureLoader.load('/textures/NormalMap.png')
+const normalTexture = textureLoader.load('/textures/probandotierra.jpg')
 
 // esto sirve de guia.
 const gui = new dat.GUI()
@@ -17,14 +17,43 @@ const canvas = document.querySelector('canvas.webgl')
 const scene = new THREE.Scene()
 
 // Objects
-const geometry = new THREE.SphereBufferGeometry(.5, 64, 64)
+const geometry = new THREE.SphereBufferGeometry(.7, 64, 64)
+
+//probando background 
+
+const starGeometry = new THREE.BufferGeometry()
+const starMaterial = new THREE.PointsMaterial({
+    color: 0xffffff,
+    size: 0.2,
+})
+
+const starVertices = []
+for (let i = 0; i < 100000; i++) {
+    const x = (Math.random() - 0.5) * 2000
+    const y = (Math.random() - 0.5) * 2000
+    const z = - Math.random() * 150
+    starVertices.push(x, y, z)
+
+}
+
+
+starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(
+    starVertices, 3)
+)
+
+const stars = new THREE.Points(
+    starGeometry, starMaterial)
+scene.add(stars)
+
+
 
 // Materials
 
 const material = new THREE.MeshStandardMaterial()
-material.metalness = 0.7
-material.roughness = 0.2
-material.normalMap = normalTexture;
+//new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('./static/textures/probandotierra.jpg') })
+material.metalness = 0.7,
+    material.roughness = 0.2,
+    material.normalMap = normalTexture;
 
 material.color = new THREE.Color(0x292929)
 
@@ -82,7 +111,7 @@ light2.addColor(light2Color, 'color')
 //Sizes
 
 const sizes = {
-    width: window.innerWidth,
+    width: window.innerWidth * 1.3,
     height: window.innerHeight
 }
 
@@ -106,6 +135,7 @@ camera.position.x = 0
 camera.position.y = 0
 camera.position.z = 2
 scene.add(camera)
+
 
 
 //Renderizado
@@ -161,4 +191,4 @@ const tick = () => {
     window.requestAnimationFrame(tick)
 }
 
-tick()
+tick();
