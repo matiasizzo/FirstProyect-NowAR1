@@ -5,7 +5,7 @@ import * as dat from 'dat.gui'
 //loading 
 
 const textureLoader = new THREE.TextureLoader()
-const normalTexture = textureLoader.load('/textures/probandotierra.jpg')
+const normalTexture = textureLoader.load('/textures/NormalMap.png')
 
 // esto sirve de guia.
 const gui = new dat.GUI()
@@ -63,14 +63,14 @@ scene.add(sphere)
 
 // Lights
 
-const pointLight = new THREE.PointLight(0xffffff, 0.1)
+const pointLight = new THREE.PointLight(0xcc50c, 2)
 pointLight.position.x = 2
 pointLight.position.y = 3
 pointLight.position.z = 4
 scene.add(pointLight)
 
 //light2
-const pointLight2 = new THREE.PointLight(0xff0000, 2)
+const pointLight2 = new THREE.PointLight(0xffffff, 2)
 pointLight2.position.set(-2.38, 1.67, -1.78)
 pointLight2.intensity = 10
 
@@ -183,7 +183,7 @@ const tick = () => {
     sphere.rotation.y = .5 * elapsedTime
     sphere.rotation.y += .1 * (targetX - sphere.rotation.y)
     sphere.rotation.x += .1 * (targetY - sphere.rotation.x)
-    sphere.position.z += -.05 * (targetY - sphere.rotation.x)
+    sphere.position.z += -.1 * (targetY - sphere.rotation.x)
 
 
     // Render
